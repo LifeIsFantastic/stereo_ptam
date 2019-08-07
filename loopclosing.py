@@ -67,7 +67,7 @@ class LoopClosing(object):
         self.stopped = True
         self._queue.put(None)
         self.maintenance_thread.join()
-        print('loop closing stopped')
+        # print('loop closing stopped')
 
     def add_keyframe(self, keyframe):
         self._queue.put(keyframe)

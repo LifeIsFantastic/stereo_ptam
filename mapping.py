@@ -219,7 +219,7 @@ class MappingThread(Mapping):
             time.sleep(1e-4)
         self._queue.put(None)   # sentinel value
         self.maintenance_thread.join()
-        print('mapping stopped')
+        # print('mapping stopped')
 
     def is_safe(self, keyframe):
         with self._lock:

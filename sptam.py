@@ -85,7 +85,7 @@ class SPTAM(object):
         self.set_tracking(True)
 
         self.current = frame
-        print('Tracking:', frame.idx, ' <- ', self.reference.id, self.reference.idx)
+        # print('Tracking:', frame.idx, ' <- ', self.reference.id, self.reference.idx)
 
         predicted_pose, _ = self.motion_model.predict_pose(frame.timestamp)
         frame.update_pose(predicted_pose)
@@ -104,7 +104,7 @@ class SPTAM(object):
         measurements = frame.match_mappoints(
             local_mappoints, Measurement.Source.TRACKING)
 
-        print('measurements:', len(measurements), '   ', len(local_mappoints))
+        # print('measurements:', len(measurements), '   ', len(local_mappoints))
 
         tracked_map = set()
         for m in measurements:
@@ -126,7 +126,7 @@ class SPTAM(object):
             print('tracking failed!!!')
 
         if tracking_is_ok and self.should_be_keyframe(frame, measurements):
-            print('new keyframe', frame.idx)
+            # print('new keyframe', frame.idx)
             keyframe = frame.to_keyframe()
             keyframe.update_reference(self.reference)
             keyframe.update_preceding(self.preceding)
@@ -144,9 +144,9 @@ class SPTAM(object):
             [self.preceding, self.reference])[0]
 
         can_view = frame.can_view(local_mappoints)
-        print('filter points:', len(local_mappoints), can_view.sum(), 
-            len(self.preceding.mappoints()),
-            len(self.reference.mappoints()))
+        # print('filter points:', len(local_mappoints), can_view.sum(), 
+        #     len(self.preceding.mappoints()),
+        #     len(self.reference.mappoints()))
         
         checked = set()
         filtered = []
@@ -175,7 +175,7 @@ class SPTAM(object):
         n_matches = len(measurements)
         n_matches_ref = len(self.reference.measurements())
 
-        print('keyframe check:', n_matches, '   ', n_matches_ref)
+        # print('keyframe check:', n_matches, '   ', n_matches_ref)
 
         return ((n_matches / n_matches_ref) < 
             self.params.min_tracked_points_ratio) or n_matches < 20
